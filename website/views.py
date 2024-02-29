@@ -9,7 +9,8 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    portfolios = Portfolios.query.all()
+    # Get user's portfolio/s
+    portfolios = Portfolios.query.filter_by(user_id=current_user.id).all()
     return render_template("home.html", user=current_user, portfolios=portfolios)
 
 
