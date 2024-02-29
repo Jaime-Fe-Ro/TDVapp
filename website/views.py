@@ -9,7 +9,6 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    # Get user's portfolio/s
     portfolios = Portfolios.query.filter_by(user_id=current_user.id).all()
     return render_template("home.html", user=current_user, portfolios=portfolios)
 
@@ -18,10 +17,13 @@ def home():
 @login_required
 def new_portfolio():
     if request.method == 'POST':
+        portfolio_name = request.form.get('portfolio')
+        if portfolio_name == "":
+            portfolio_name = "69420 - should have named the Portfolio lol"
         cash = request.form.get('cash')
         shares = request.form.get('shares')
 
-        new_portfolio_info = Portfolios(cash=cash, shares=shares, user_id=current_user.id)
+        new_portfolio_info = Portfolios(portfolio_name=portfolio_name, cash=cash, shares=shares, user_id=current_user.id)
         db.session.add(new_portfolio_info)
         db.session.commit()
 

@@ -5,6 +5,7 @@ from sqlalchemy.sql import func
 
 class Portfolios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    portfolio_name = db.Column(db.String(150))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     shares = db.Column(db.Float)
     cash = db.Column(db.Float)
