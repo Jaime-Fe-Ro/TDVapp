@@ -35,7 +35,7 @@ def logout():
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
-def sign_up():
+def sign_up(): # TODO: currently deletes form information after error submission, change to remember
     if request.method == 'POST':
         username = request.form.get('username')
         password1 = request.form.get('password1')
