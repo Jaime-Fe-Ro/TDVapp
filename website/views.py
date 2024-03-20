@@ -39,8 +39,21 @@ def delete_portfolio():
     portfolio = Portfolios.query.filter_by(id=portfolio_id).first()
     if portfolio:
         if portfolio.user_id == current_user.id:
-            portfolio_name = portfolio.portfolio_name  # Capture the name before deletion
+            portfolio_name = portfolio.portfolio_name
             db.session.delete(portfolio)
             db.session.commit()
             flash(f'Portfolio "{portfolio_name}" successfully deleted!', 'success')
     return redirect('/')
+
+
+@views.route('/modify-portfolio/<int:portfolio_id>', methods=['GET', 'POST'])
+@login_required
+def modify_portfolio(portfolio_id):
+    portfolio = Portfolios.query.get_or_404(portfolio_id)
+    if request.method == 'POST':
+        portfolio.cash = request.form['cash']
+        portfolio.shares = request.form['shares']
+        portfolio.portfolio_name = request.form['portfolio']
+        db.session.commit()
+        return redirect('/')
+    return render_template("modify_portfolio.html", user=current_user, portfolio=portfolio)

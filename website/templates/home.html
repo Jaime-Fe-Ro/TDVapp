@@ -25,7 +25,7 @@ Home
       <td>{{ portfolio.cash }}</td>
       <td>{{ portfolio.shares }}</td>
       <td>
-        <a href="/modify-portfolio" class="btn btn">✏️</a>
+        <a href="{{ url_for('views.modify_portfolio', portfolio_id=portfolio.id) }}" class="btn btn">✏️</a>
       </td>
       <td>
       <form action="/delete-portfolio" method="post" onsubmit="return confirmDeletion('{{ portfolio.portfolio_name }}')">
