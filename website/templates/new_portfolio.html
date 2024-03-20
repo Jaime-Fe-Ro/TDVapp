@@ -14,6 +14,7 @@ Create a New Portfolio
       id="cash"
       name="cash"
       placeholder="Enter cash"
+      value="{{ cash }}"
     />
   </div>
   <div class="form-group">
@@ -24,17 +25,19 @@ Create a New Portfolio
       id="shares"
       name="shares"
       placeholder="Enter shares"
+      value="{{ shares }}"
     />
   </div>
   <div class="form-group">
-  <label for="portfolio">Portfolio name</label>
-  <input
-    type="text"
-    class="form-control"
-    id="portfolio"
-    name="portfolio"
-    placeholder="Optional: Enter a name for the portfolio"
-  />
+    <label for="portfolio">Portfolio name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="portfolio"
+      name="portfolio"
+      placeholder="Optional: Enter a name for the portfolio"
+      value="{{ portfolio_name }}"
+    />
   </div>
   <br />
   <button type="submit" class="btn btn-primary">Add Portfolio</button>

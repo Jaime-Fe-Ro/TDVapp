@@ -18,10 +18,14 @@ def home():
 def new_portfolio():
     if request.method == 'POST':
         portfolio_name = request.form.get('portfolio')
-        if portfolio_name == "":
-            portfolio_name = "69420 - should have named the Portfolio lol"
         cash = request.form.get('cash')
         shares = request.form.get('shares')
+
+        existing_portfolio = Portfolios.query.filter_by(user_id=current_user.id, portfolio_name=portfolio_name).first()
+        if existing_portfolio:
+            flash('A portfolio with this name already exists. Please choose a different name.', 'error')
+            # Note: Not passing portfolio_name back to the template on error
+            return render_template("new_portfolio.html", user=current_user, cash=cash, shares=shares)
 
         new_portfolio_info = Portfolios(portfolio_name=portfolio_name, cash=cash, shares=shares, user_id=current_user.id)
         db.session.add(new_portfolio_info)
@@ -29,7 +33,7 @@ def new_portfolio():
 
         return redirect('/')
 
-    return render_template("new_portfolio.html", user=current_user)
+    return render_template("new_portfolio.html", user=current_user, cash="", shares="")
 
 
 @views.route('/delete-portfolio', methods=['POST'])
