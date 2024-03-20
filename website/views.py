@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, flash
 from flask_login import login_required, current_user
 from .models import Portfolios
 from . import db
@@ -30,3 +30,17 @@ def new_portfolio():
         return redirect('/')
 
     return render_template("new_portfolio.html", user=current_user)
+
+
+@views.route('/delete-portfolio', methods=['POST'])
+@login_required
+def delete_portfolio():
+    portfolio_id = request.form.get('portfolio_id')
+    portfolio = Portfolios.query.filter_by(id=portfolio_id).first()
+    if portfolio:
+        if portfolio.user_id == current_user.id:
+            portfolio_name = portfolio.portfolio_name  # Capture the name before deletion
+            db.session.delete(portfolio)
+            db.session.commit()
+            flash(f'Portfolio "{portfolio_name}" successfully deleted!', 'success')
+    return redirect('/')

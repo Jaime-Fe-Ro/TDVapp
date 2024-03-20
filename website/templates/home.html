@@ -28,14 +28,18 @@ Home
         <a href="/modify-portfolio" class="btn btn">✏️</a>
       </td>
       <td>
-        <a href="/delete-portfolio" class="btn btn">❌</a>
+      <form action="/delete-portfolio" method="post" onsubmit="return confirmDeletion('{{ portfolio.portfolio_name }}')">
+          <input type="hidden" name="portfolio_id" value="{{ portfolio.id }}" />
+          <button type="submit" class="btn btn">❌</button>
+      </form>
+
+      <script>
+      function confirmDeletion(portfolioName) {
+          const isConfirmed = confirm(`Are you sure you want to delete the portfolio "${portfolioName}"?`);
+          return isConfirmed;
+      }
+      </script>
       </td>
-<!--      <td>-->
-<!--        <a href="/modify-portfolio/{{ portfolio.portfolio_name }}" class="btn btn">✏️</a>-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <a href="/delete-portfolio/{{ portfolio.portfolio_name }}" class="btn btn">❌</a>-->
-<!--      </td>-->
     </tr>
     {% endfor %}
   </tbody>
