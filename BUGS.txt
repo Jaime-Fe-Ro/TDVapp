@@ -1,0 +1,1 @@
+when portfolio is added and error occurs, if user backtracks, name gets set to empty string.
