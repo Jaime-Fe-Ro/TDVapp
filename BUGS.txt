@@ -1,1 +1,2 @@
 when portfolio is added and error occurs, if user backtracks, name gets set to empty string.
+Keep me logged in button doesn't seem to work as intended (it always keeps user logged in)

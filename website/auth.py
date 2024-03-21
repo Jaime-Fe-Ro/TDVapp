@@ -12,17 +12,18 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        remember = request.form.get('remember') == 'on'
 
         user = User.query.filter_by(username=username).first()
         if user:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
-                login_user(user, remember=True)
+                login_user(user, remember=remember)
                 return redirect(url_for('views.home'))
             else:
-                flash('Username does not exist or password is incorrect.', category='error')
+                flash('Incorrect username or password.', category='error')
         else:
-            flash('Username does not exist or password is incorrect.', category='error')
+            flash('Username does not exist.', category='error')
 
     return render_template("login.html", user=current_user)
 

@@ -1,8 +1,8 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
-%}
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
 <form method="POST">
   <h3 align="center">Login</h3>
-<!--  TODO: add email/phone number for login requirements to prevent bots-->
   <div class="form-group">
     <label for="username">Username</label>
     <input
@@ -22,6 +22,10 @@
       name="password"
       placeholder="Enter password"
     />
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+    <label class="form-check-label" for="remember">Keep me logged in</label>
   </div>
   <br />
   <button type="submit" class="btn btn-primary">Login</button>
